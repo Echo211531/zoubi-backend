@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zourui.springbootinit.mapper.BiChartMapper">
+
+    <resultMap id="BaseResultMap" type="com.zourui.springbootinit.model.entity.BiChart">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="goal" column="goal" jdbcType="VARCHAR"/>
+            <result property="chartName" column="chartName" jdbcType="VARCHAR"/>
+            <result property="chartData" column="chartData" jdbcType="VARCHAR"/>
+            <result property="chartType" column="chartType" jdbcType="VARCHAR"/>
+            <result property="genChart" column="genChart" jdbcType="VARCHAR"/>
+            <result property="genResult" column="genResult" jdbcType="VARCHAR"/>
+            <result property="userId" column="userId" jdbcType="BIGINT"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,goal,chartName,
+        chartData,chartType,genChart,
+        genResult,userId,create_time,
+        update_time,isDelete
+    </sql>
+    
+    <select id="queryChartData" parameterType="string" resultType="map">
+        select * from chart_#{chartId}
+    </select>
+</mapper>
