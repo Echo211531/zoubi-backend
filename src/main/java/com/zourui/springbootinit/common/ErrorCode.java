@@ -1,5 +1,8 @@
 package com.zourui.springbootinit.common;
 
+
+
+
 /**
  * 自定义错误码
  * @author zourui
@@ -34,7 +37,6 @@ public enum ErrorCode {
     public int getCode() {
         return code;
     }
-
     public String getMessage() {
         return message;
     }

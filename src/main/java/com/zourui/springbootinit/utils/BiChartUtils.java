@@ -58,6 +58,7 @@ public class BiChartUtils {
         chart.setGenChart(genChart);
         chart.setGenResult(genResult);
         chart.setUserId(loginUser.getId());
+        chart.setChartStatus("succeed");  //设置状态
         return chart;
     }
     /**

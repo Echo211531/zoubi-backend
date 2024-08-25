@@ -111,7 +111,7 @@ public class BiChartServiceImpl extends ServiceImpl<BiChartMapper, BiChart>
         boolean saveResult = chartService.save(chart);       //存入数据库
         ThrowUtils.throwIf(!saveResult, ErrorCode.SYSTEM_ERROR, "图表保存失败");
         BiVo biResponse = new BiVo();
-        biResponse.setGenChart(genChart);           //返回给前端
+        biResponse.setGenChart(genChart);               //返回给前端
         biResponse.setGenResult(genResult);
         biResponse.setChartId(chart.getId());
         return biResponse;
