@@ -11,6 +11,8 @@ public class BiInitMain {
         try {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
+//            factory.setHost("110.40.137.152");
+//            factory.setPassword("Zr13970309103"); // 设置密码
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();          //获取频道
 
@@ -30,7 +32,7 @@ public class BiInitMain {
             // 通过设置 x-message-ttl 参数来指定消息的过期时间
             Map<String, Object> queueArgs = new HashMap<>();
             //queueArgs.put("x-message-ttl", 6000000); // 过期时间为 6000 秒
-            //创建工作队列，持久，不排他，不自动删除，过期时间6000秒
+            //创建工作队列，持久，不排他，不自动删除，没有过期时间
             channel.queueDeclare(queueName, true, false, false, queueArgs);
             //创建双写一致队列
            // channel.queueDeclare(queueRedisAndMysqlName,true,false,false,null);

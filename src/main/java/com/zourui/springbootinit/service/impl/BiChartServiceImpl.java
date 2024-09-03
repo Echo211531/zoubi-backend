@@ -94,7 +94,9 @@ public class BiChartServiceImpl extends ServiceImpl<BiChartMapper, BiChart>
         // //获得预设+用户输入的拼接数据
         String userInput = BiChartUtils.getUserInput(goal, chartType, multipartFile);
         // 处理数据
-        String s = aiManager.doChat(biModelId, userInput);
+        //String s = aiManager.doChat(biModelId, userInput);  //鱼聪明AI
+        String s = aiManager.doChat(userInput);    //讯飞星火api
+
         //分割 生成的信息，获取对应图表，结论信息
         String[] splits = s.split("【【【【【");
         if (splits.length < 3) {
@@ -129,7 +131,7 @@ public class BiChartServiceImpl extends ServiceImpl<BiChartMapper, BiChart>
         User loginUser = userService.getLoginUser(request);
         //限流判断
         //每个用户一个限流器
-        // redisLimiterManager.doRateLimit("genChartByAi"+loginUser.getId());
+         //redisLimiterManager.doRateLimit("genChartByAi"+loginUser.getId());
 
         // 前端发送来的数据先插入到数据库
         String csvData = ExcelUtils.excelToCsv(multipartFile);
@@ -158,7 +160,9 @@ public class BiChartServiceImpl extends ServiceImpl<BiChartMapper, BiChart>
             }
 
             //调用AI
-            String s = aiManager.doChat(biModelId, userInput);
+            //String s = aiManager.doChat(biModelId, userInput); //鱼聪明AI
+            String s = aiManager.doChat(userInput);    //讯飞星火API
+
             //分割 生成的信息，获取对应图表，结论信息
             String[] splits = s.split("【【【【【");
             if (splits.length < 3) {

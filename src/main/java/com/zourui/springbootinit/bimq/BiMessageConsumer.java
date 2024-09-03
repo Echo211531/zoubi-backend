@@ -1,27 +1,19 @@
 package com.zourui.springbootinit.bimq;
-import cn.hutool.http.HttpRequest;
-import co.elastic.clients.elasticsearch.nodes.Http;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.esotericsoftware.minlog.Log;
 import com.rabbitmq.client.Channel;
 import com.zourui.springbootinit.common.ChartStatus;
 import com.zourui.springbootinit.common.ErrorCode;
 import com.zourui.springbootinit.exception.BusinessException;
 import com.zourui.springbootinit.manager.AiManager;
-import com.zourui.springbootinit.manager.RedisLimiterManager;
 import com.zourui.springbootinit.model.entity.BiChart;
 import com.zourui.springbootinit.service.BiChartService;
-import com.zourui.springbootinit.service.UserService;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 
 @Component
@@ -64,7 +56,8 @@ public class BiMessageConsumer {
         //使用平台AI模型提供的预设
         long biModelId = 1654785040361893889L;
         //调用AI
-        String s = aiManager.doChat(biModelId, buildUserInput(chart));
+        //String s = aiManager.doChat(biModelId, buildUserInput(chart)); //鱼聪明AI
+        String s = aiManager.doChat(buildUserInput(chart));   //讯飞星火API
         //分割 生成的信息，获取对应图表，结论信息
         String[] splits = s.split("【【【【【");
         if (splits.length < 3) {
@@ -109,11 +102,11 @@ public class BiMessageConsumer {
                 "{数据分析的需求以及图表类型，如折线图，散点图等}\n" +
                 "原始数据：\n" +
                 "{csv格式的原始数据，用,作为分隔符}\n" +
-                "请根据这两部分内容，严格按照以下指定格式生成内容（此外不要输出任何多余的开头、结尾、注释）\n" +
+                "请根据这两部分内容，严格按照以下指定格式生成内容（此外不要输出任何多余的开头、结尾、注释等）\n" +
                 "【【【【【\n" +
-                "{前端 Echarts V5 的 option 配置对象的json格式代码，注意不要出现函数，合理地将数据进行可视化，不要生成任何多余的内容，比如注释}\n" +
+                "{明确的前端 Echarts V5 的 option 配置对象的JSON格式代码，注意不要出现函数，标题，合理地将数据进行可视化，不要生成任何多余的内容，比如注释}\n" +
                 "【【【【【\n" +
-                "{明确的数据分析结论、越详细越好，不要生成多余的注释}";
+                "{明确的数据分析结论内容、越详细越好，不要生成多余的注释}";
 
         // 分析需求：
         // 分析网站用户的增长情况

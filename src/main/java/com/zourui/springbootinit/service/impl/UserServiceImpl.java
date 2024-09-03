@@ -1,7 +1,6 @@
 package com.zourui.springbootinit.service.impl;
 
 import static com.zourui.springbootinit.constant.UserConstant.USER_LOGIN_STATE;
-
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

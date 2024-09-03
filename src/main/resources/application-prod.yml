@@ -1,35 +1,23 @@
 # 线上配置文件
 server:
   port: 8101
+  address: 0.0.0.0
 spring:
   # 数据库配置
-  # todo 需替换配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zoubi
-    username: root
-    password: 151212
-  # Redis 配置
-  # todo 需替换配置
-  redis:
-    database: 0
-    host: 192.168.248.134
-    port: 6379
-    timeout: 5000
-    password: 123456
-  # Elasticsearch 配置
-  # todo 需替换配置
-  elasticsearch:
-    uris: http://localhost:9200
-    username: root
-    password: 151212
+    url: jdbc:mysql://110.40.137.152:3306/wzx151212
+    username: wzx151212
+    password: Zr13970309103
+
+  # rabbitmq 信息
+  rabbitmq:
+    host: 110.40.137.152
+    password: Zr13970309103
+    username: guest
+    port: 5672
+
 mybatis-plus:
   configuration:
     # 生产环境关闭日志
     log-impl: ''
-# 接口文档配置
-knife4j:
-  basic:
-    enable: true
-    username: root
-    password: 123456
