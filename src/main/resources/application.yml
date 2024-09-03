@@ -4,7 +4,7 @@ spring:
     name: zoubi-backend
   # 默认 dev 环境
   profiles:
-    active: dev
+    active: prod
   # 支持 swagger3
   mvc:
     pathmatch:
@@ -17,11 +17,11 @@ spring:
     timeout: 2592000
   # 数据库配置
   # todo 需替换配置
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zoubi
-    username: root
-    password: 151212
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/zoubi
+#    username: root
+#    password: 151212
   # rabbitmq 信息
 #  rabbitmq:
 #    host: localhost

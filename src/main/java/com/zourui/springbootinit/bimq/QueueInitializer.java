@@ -2,17 +2,27 @@ package com.zourui.springbootinit.bimq;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BiInitMain {
-    public static void main(String[] args) {
+@Component
+public class QueueInitializer implements ApplicationListener<ContextRefreshedEvent> {
+
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        initializeQueues();
+    }
+
+    private void initializeQueues() {   //创建一个监听器来监听,每次启动项目都会执行一次消息队列初始化
         try {
             ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-           // factory.setHost("110.40.137.152");
-            //factory.setPassword("Zr13970309103"); // 设置密码
+            //factory.setHost("localhost");
+            factory.setHost("110.40.137.152");
+            factory.setPassword("Zr13970309103"); // 设置密码
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();          //获取频道
 
@@ -35,7 +45,7 @@ public class BiInitMain {
             //创建工作队列，持久，不排他，不自动删除，没有过期时间
             channel.queueDeclare(queueName, true, false, false, queueArgs);
             //创建双写一致队列
-           // channel.queueDeclare(queueRedisAndMysqlName,true,false,false,null);
+            // channel.queueDeclare(queueRedisAndMysqlName,true,false,false,null);
             //为其设置死信交换机
             Map<String, Object> deadArgs = new HashMap<>();
             deadArgs.put("x-dead-letter-exchange",deadExchangeName );
@@ -51,6 +61,5 @@ public class BiInitMain {
         } catch (Exception e) {
             // 处理异常情况
         }
-
     }
 }
